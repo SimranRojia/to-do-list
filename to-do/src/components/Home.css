@@ -1,0 +1,44 @@
+
+
+.todo-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .todo-form {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .todo-input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .todo-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .todo-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .todo-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .todo-item {
+    margin-bottom: 8px;
+  }
+  
