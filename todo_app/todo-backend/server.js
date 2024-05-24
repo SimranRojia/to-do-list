@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB database
-mongoose.connect('mongodb://localhost:27017/todoList', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/todoList');
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -21,7 +21,7 @@ db.once('open', () => {
 
 // Define a schema for todo items
 const todoSchema = new mongoose.Schema({
-  text: String
+  task: String
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
@@ -38,11 +38,12 @@ app.get('/todos', async (req, res) => {
 
 // POST a new todo
 app.post('/todos', async (req, res) => {
-  const { text } = req.body;
+  const { task } = req.body; // Extract task directly from req.body
   try {
-    const newTodo = await Todo.create({ text });
-    res.status(201).json(newTodo);
+    const newTodo = await Todo.create({ task });
+    res.status(201).json(newTodo); // Send the newly created todo as the response
   } catch (error) {
+    console.error('Error adding todo:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -14,17 +14,17 @@ function App() {
 
   const fetchTodos = async () => {
     try {
-      const response = await axios.get('/todos');
+      const response = await axios.get('http://localhost:3000/todos'); // Adjust the URL as per your backend server
       setTodos(response.data);
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
   };
 
-  const addTodo = async (text) => {
+  const addTodo = async (todo) => {
     try {
-      const response = await axios.post('/todos', { text });
-      setTodos([...todos, response.data]);
+      const response = await axios.post('http://localhost:3000/todos', todo); // Adjust the URL as per your backend server
+      setTodos([...todos, response.data]); // Update todos state with the newly created todo
     } catch (error) {
       console.error('Error adding todo:', error);
     }
@@ -32,8 +32,8 @@ function App() {
 
   const removeTodo = async (id) => {
     try {
-      await axios.delete(`/todos/${id}`);
-      setTodos(todos.filter(todo => todo.id !== id));
+      await axios.delete(`http://localhost:3000/todos/${id}`); // Adjust the URL as per your backend server
+      setTodos(todos.filter(todo => todo._id !== id)); // Update todos state after removing the todo
     } catch (error) {
       console.error('Error removing todo:', error);
     }
@@ -43,11 +43,7 @@ function App() {
     <div className="todo-container">
       <h1>To-Do List</h1>
       <TodoForm addTodo={addTodo} />
-      <ul>
-        {todos.map(todo => (
-          <TodoItem key={todo.id} todo={todo} removeTodo={removeTodo} />
-        ))}
-      </ul>
+      
     </div>
   );
 }

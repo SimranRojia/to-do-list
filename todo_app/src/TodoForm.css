@@ -1,0 +1,63 @@
+/* TodoForm.css */
+.todo-form {
+    margin-bottom: 20px;
+  }
+  
+  .todo-input {
+    width: calc(100% - 100px); /* Adjust width of input to accommodate the button */
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .todo-submit {
+    width: 100px; /* Set width of submit button */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .todo-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .todo-list {
+    margin-top: 20px;
+  }
+  
+  .todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add bottom border to separate items */
+  }
+  
+  .todo-item span {
+    flex: 1; /* Allow todo text to grow within the flex container */
+  }
+  
+  .todo-item button {
+    background-color: #dc3545; /* Red color for remove button */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  .todo-item button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  /* TodoForm.css */
+.todo-item {
+    margin-bottom: 10px; /* Add margin bottom to create space between todo items */
+  }
+  
+.todo-item button {
+    margin-right: 10px; /* Add margin right to create space between buttons */
+  }
+  
