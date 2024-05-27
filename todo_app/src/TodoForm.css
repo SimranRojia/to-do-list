@@ -61,3 +61,16 @@
     margin-right: 10px; /* Add margin right to create space between buttons */
   }
   
+  .todo-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjust alignment */
+  }
+  
+  .todo-input,
+  .deadline-input,
+  .todo-submit {
+    flex: 1; /* Let the input fields and button grow to occupy remaining space */
+    margin-right: 10px;
+  }
+  
