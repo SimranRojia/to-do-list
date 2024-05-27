@@ -21,7 +21,8 @@ db.once('open', () => {
 
 // Define a schema for todo items
 const todoSchema = new mongoose.Schema({
-  task: String
+  task: String,
+  deadline: Date,
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
