@@ -23,7 +23,7 @@ db.once('open', () => {
 
 // Define a schema for todo items
 const todoSchema = new mongoose.Schema({
-  task: String,
+  text: String,
   deadline: Date,
 });
 
@@ -40,18 +40,20 @@ app.get('/todos', async (req, res) => {
 });
 
 // POST a new todo
-// POST a new todo
 app.post('/todos', async (req, res) => {
-  const { text, deadline, done } = req.body;
+  const { text, deadline, done } = req.body; // Ensure these fields match your request body
   try {
-    const newTodo = await Todo.create({ text, deadline, done });
+    const newTodo = new Todo({
+      text,
+      deadline
+    });
+    await newTodo.save(); // Save the new todo item to the database
     res.status(201).json(newTodo); // Respond with the created todo object
   } catch (error) {
     console.error('Error adding todo:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 // DELETE a todo
 app.delete('/todos/:id', async (req, res) => {
