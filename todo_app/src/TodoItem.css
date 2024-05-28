@@ -1,0 +1,24 @@
+/* TodoItem.css */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .todo-item span {
+    flex: 1;
+  }
+  
+  .todo-item button {
+    margin-left: 10px; /* Ensure sufficient gap between buttons */
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+  .todo-item.done span {
+    text-decoration: line-through;
+    color: #888;
+  }
+  

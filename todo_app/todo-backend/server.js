@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,9 +10,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB database
-mongoose.connect('mongodb://localhost:27017/todoList');
-const db = mongoose.connection;
+mongoose.connect('mongodb://localhost:27017/todoList', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB database');
@@ -21,7 +23,9 @@ db.once('open', () => {
 
 // Define a schema for todo items
 const todoSchema = new mongoose.Schema({
-  task: String
+  text: String,
+  deadline: String,
+  done: Boolean,
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
@@ -37,16 +41,18 @@ app.get('/todos', async (req, res) => {
 });
 
 // POST a new todo
+// POST a new todo
 app.post('/todos', async (req, res) => {
-  const { task } = req.body; // Extract task directly from req.body
+  const { text, deadline, done } = req.body;
   try {
-    const newTodo = await Todo.create({ task });
-    res.status(201).json(newTodo); // Send the newly created todo as the response
+    const newTodo = await Todo.create({ text, deadline, done });
+    res.status(201).json(newTodo); // Respond with the created todo object
   } catch (error) {
     console.error('Error adding todo:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // DELETE a todo
 app.delete('/todos/:id', async (req, res) => {
@@ -54,6 +60,22 @@ app.delete('/todos/:id', async (req, res) => {
   try {
     await Todo.findByIdAndDelete(id);
     res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// PUT to update a todo
+app.put('/todos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { text, deadline, done } = req.body;
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      { text, deadline, done },
+      { new: true }
+    );
+    res.json(updatedTodo);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }

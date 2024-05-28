@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -39,11 +38,29 @@ function App() {
     }
   };
 
+  const updateTodo = async (id, updatedTodo) => {
+    try {
+      const response = await axios.put(`http://localhost:3000/todos/${id}`, updatedTodo); // Adjust the URL as per your backend server
+      setTodos(todos.map(todo => (todo._id === id ? response.data : todo))); // Update todos state after updating the todo
+    } catch (error) {
+      console.error('Error updating todo:', error);
+    }
+  };
+
   return (
     <div className="todo-container">
       <h1>To-Do List</h1>
       <TodoForm addTodo={addTodo} />
-      
+      <ul>
+        {todos.map(todo => (
+          <TodoItem
+            key={todo._id}
+            todo={todo}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        ))}
+      </ul>
     </div>
   );
 }
