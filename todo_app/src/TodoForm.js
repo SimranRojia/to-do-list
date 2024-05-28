@@ -1,19 +1,33 @@
-// TodoForm.js
 import React, { useState } from 'react';
 import './TodoForm.css'; // Import CSS file
 
 function TodoForm({ addTodo }) {
   const [text, setText] = useState('');
-  const [deadline, setDeadline] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [todos, setTodos] = useState([]); // State to hold todos
   const [editingIndex, setEditingIndex] = useState(null); // State to track the index of the todo being edited
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Combine date and time into a single string
+    const dateTimeString = date + 'T' + time;
+    
+    // Create a new Date object
+    const deadline = new Date(dateTimeString);
+    
+    // Check if the deadline is a valid date
+    if (isNaN(deadline.getTime())) {
+      alert('Please enter a valid date and time.');
+      return;
+    }
+
     addTodo({ text, deadline, done: false }); // Include 'done' property with initial value 'false'
     setText('');
-    setDeadline('');
-    setTodos([...todos, { text, deadline, done: false }]); // Add new todo with deadline to the list
+    setDate('');
+    setTime('');
+    setTodos([...todos, { text, deadline, done: false }]);
   };
 
   const handleRemove = (index) => {
@@ -42,13 +56,19 @@ function TodoForm({ addTodo }) {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Enter a new todo"
+          placeholder="Enter a new task"
           className="todo-input"
         />
         <input
           type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="deadline-input"
+        />
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
           className="deadline-input"
         />
         <button type="submit" className="todo-submit">Add</button>
@@ -62,13 +82,13 @@ function TodoForm({ addTodo }) {
                   type="text"
                   value={todo.text}
                   onChange={(e) => handleEdit(index, e.target.value)}
-                  onBlur={() => setEditingIndex(null)} // Save changes on blur
-                  autoFocus // Focus on input field when editing starts
+                  onBlur={() => setEditingIndex(null)}
+                  autoFocus
                 />
               ) : (
                 <>
                   <span>{todo.text}</span>
-                  <span>Deadline: {todo.deadline}</span>
+                  <span>Deadline: {new Date(todo.deadline).toLocaleString()}</span>
                   <div>
                     <button onClick={() => handleToggleDone(index)}>{todo.done ? 'Undo' : 'Done'}</button>
                     <button onClick={() => setEditingIndex(index)}>Edit</button>
