@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import TodoForm from './TodoForm';
+import pic1 from './todobackground.png'
+
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -49,7 +51,12 @@ function App() {
   };
 
   return (
-    <div className="todo-container">
+    <div
+      className="todo-container"
+      style={{ backgroundImage: `url(${pic1})` }} // Inline style for background image
+    >
+      
+      
       <h1>To-Do List</h1>
       <TodoForm addTodo={addTodo} />
       <ul className="todo-list">

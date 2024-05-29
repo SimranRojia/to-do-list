@@ -1,10 +1,11 @@
 .todo-container {
-  max-width: auto;
-  height: 500px;
-  margin: 50px 50px 50px 50px;
-  padding: 0 20px;
+  width: 100%;
+  min-height: 100vh; /* Full height of the viewport */
+  margin: 0; /* Remove default margin */
+  padding: 20px; /* Adjusted padding */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
   font-family: Arial, sans-serif;
-  background-color: #fa939d;
+  
 }
 
 h1 {
