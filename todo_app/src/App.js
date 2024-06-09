@@ -53,7 +53,7 @@ function App() {
   return (
     <div
       className="todo-container"
-      style={{ backgroundImage: `url(${pic1})` }} // Inline style for background image
+      style={{ backgroundImage: `url(${pic1})` }}
     >
       
       
